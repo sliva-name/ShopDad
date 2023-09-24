@@ -37,7 +37,7 @@ class OrderResource extends Resource
                 Text::make('Название', 'name'),
                 Text::make('Количество', 'quantity'),
                 Text::make('Цена за предмет', 'price'),
-                NoInput::make('Фото', 'product_thumb', fn($item) => view('moonshine::ui.image', ['value' => '/storage/' . $item->product?->img]))->nullable()
+                NoInput::make('Фото', 'product_thumb', fn($item) => view('moonshine::components.thumbnails', ['values' => $this->recordsArray($item)]))
             ])->removable()->hideOnIndex(),
 
             Text::make('Сумма заказа','summ'),
@@ -49,6 +49,14 @@ class OrderResource extends Resource
 
         ];
 	}
+    private function recordsArray($array): array
+    {
+        $arr = [];
+        foreach ($array->product->img as $item) {
+            $arr[] = '/storage/' . $item;
+        }
+        return $arr;
+    }
 
 	public function rules(Model $item): array
 	{

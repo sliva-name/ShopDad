@@ -41,7 +41,6 @@ class CartController extends Controller
 
     public function addItem(Product $item)
     {
-        $userId = session()->has('userID') ? session()->get('userID') : session(['userID' => Str::random(10)]);
 
       \Cart::add(array(
             'id' => $item->id, // inique row ID

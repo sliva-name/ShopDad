@@ -27,7 +27,19 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        foreach (\Cart::getContent() as $item) {
+            \Cart::session($request->user()->id)->add([
+                'id' => $item->id,
+                'name' => $item->name,
+                'price' => $item->price,
+                'quantity' => $item->quantity,
+                'attributes' => $item->attributes
+            ]);
+        }
+
         $request->session()->regenerate();
+
+
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

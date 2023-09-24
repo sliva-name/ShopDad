@@ -35,7 +35,7 @@ Route::group(['prefix' => 'cart'], function () {
     Route::post('/update', [CartController::class, 'updateCart'])->name('cart.update');
 });
 
-Route::group(['prefix' => 'order'], function () {
+Route::group(['prefix' => 'order', 'middleware' => 'auth'], function () {
    Route::get('/', [OrderController::class, 'index'])->name('order.index');
    Route::post('/add', [OrderController::class, 'addOrder'])->name('order.add');
    Route::get('/get', [OrderController::class, 'get'])->name('order.get');
