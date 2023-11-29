@@ -1,16 +1,15 @@
 <?php $__env->startSection('content'); ?>
     <div class="w-full px-6 pt-16 pb-24">
         <h1 class="font-bold text-4xl text-gray-900">Корзина</h1>
-        <form action="<?php echo e(route('order.index'), false); ?>"
-              class="py-12 grid lg:grid-cols-12 sm:grid-cols-1 lg:gap-12 sm:gap-y-12 items-start">
+        <form action="<?php echo e(route('order.index'), false); ?>" class="py-12 grid grid-cols-1 gap-y-12  lg:grid-cols-12 sm:grid-cols-1 lg:gap-12 sm:gap-y-12 items-start">
             <section class="cart_items col-span-7">
                 <?php if(Cart::isEmpty()): ?>
                     <h2 class="text-3xl text-gray-900 font-medium">Корзина пуста</h2>
                 <?php else: ?>
                     <ul class="border-t border-b" id="products">
                         <?php $__currentLoopData = $cartItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <li class="py-10 flex border-b first-of-type:border-t-0 last-of-type:border-b-0" id="item">
-                                <div class="flex-shrink-0 lg:w-48 lg:h-48 sm:w-24 sm:h-24">
+                            <li class="py-10 flex sm:flex-row lg:sm:flex-row flex-col border-b first-of-type:border-t-0 last-of-type:border-b-0" id="item">
+                                <div class="flex-shrink-0 w-full h-24 mb-4 lg:mb-0 sm:mb-0 lg:w-48 lg:h-48 sm:w-24 sm:h-24">
                                     <div class="swiper mySwiper">
                                         <div class="swiper-wrapper">
                                             <?php $__currentLoopData = $item->associatedModel->img; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -34,7 +33,7 @@
                                     </script>
 
                                 </div>
-                                <div class="ml-6 flex flex-col justify-between flex-1">
+                                <div class="lg:ml-6 sm:ml-6 ml-0 flex flex-col justify-between flex-1">
                                     <div class="grid lg:grid-cols-2 sm:grid-cols-1 relative pr-0 gap-6">
                                         <div>
                                             <div class="flex justify-between flex-col">
@@ -106,19 +105,19 @@
                 <h2 class="font-medium text-lg">Краткое описание заказа</h2>
                 <dl class="mt-6 space-y-4">
                     <?php $__currentLoopData = $cartConditions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $condition): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="flex justify-between items-center border-t  first-of-type:border-t-0  pt-4">
+                        <div class="flex lg:gap-0 gap-4 lg:flex-row sm:flex-row flex-col justify-between items-center border-t  first-of-type:border-t-0  pt-4">
                             <dt class="text-sm text-gray-600"><?php echo e($condition->getName(), false); ?></dt>
                             <dd class="text-sm font-medium text-gray-900"><?php echo e($condition->getValue(), false); ?></dd>
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php $__currentLoopData = \Cart::getContent(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="flex justify-between items-center border-t  first-of-type:border-t-0  pt-4">
-                                <dt class="text-sm text-gray-600"><?php echo e($item->name, false); ?> X <?php echo e($item->quantity, false); ?></dt>
+                            <div class="flex lg:gap-0 gap-4 lg:flex-row sm:flex-row flex-col justify-between items-center border-t  first-of-type:border-t-0  pt-4">
+                                <dt class="text-sm text-gray-600"><?php echo e($item->name, false); ?> X <span id="quantity_item"><?php echo e($item->quantity, false); ?></span></dt>
                                 <dd class="text-sm font-medium text-gray-900"><?php echo e($item->price *  $item->quantity, false); ?></dd>
                             </div>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                    <div class="flex justify-between items-center  border-t  pt-4">
+                    <div class="flex lg:gap-0 gap-4 lg:flex-row sm:flex-row flex-col justify-between items-center  border-t  pt-4">
                         <dt class="text-base font-medium text-gray-900">Итоговая цена</dt>
                         <dd class="text-base font-medium text-gray-900" id="total"><?php echo e(Cart::getTotal(), false); ?> руб</dd>
                     </div>
@@ -177,6 +176,7 @@
                     data: {id: id, quantity: quantity},
                     success: function (result) {
                         $('#total').html(result.total)
+                        $('#quantity_item').html(result.quantity)
                     },
                     error: function (result) {
                         console.log(result);

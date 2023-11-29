@@ -72,8 +72,8 @@ class CartController extends Controller
         ]);
 
         $total = \Cart::getTotal();
-
-        return response()->json(['total' => $total . ' руб']);
+        $quantity = $item->quantity;
+        return response()->json(['total' => $total . ' руб', 'quantity' => $quantity]);
     }
 
     public function removeItem(Request $request): \Illuminate\Http\JsonResponse

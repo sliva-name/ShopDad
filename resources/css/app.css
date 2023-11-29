@@ -1,9 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root{
     --swiper-theme-color: #000;
 }
+
 .swiper {
     width: 100%;
 }

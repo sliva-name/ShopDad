@@ -58,37 +58,37 @@
         <ul class="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
             <li>
                 <a class="text-gray-400 transition hover:text-white" href="/">
-                    About
+                    О нас
                 </a>
             </li>
 
             <li>
                 <a class="text-gray-400 transition hover:text-white" href="/">
-                    Careers
+                    Способы оплаты
                 </a>
             </li>
 
             <li>
                 <a class="text-gray-400 transition hover:text-white" href="/">
-                    History
+                    Возврат товара
                 </a>
             </li>
 
             <li>
                 <a class="text-gray-400 transition hover:text-white" href="/">
-                    Services
+                    Возврат денежных средств
                 </a>
             </li>
 
             <li>
                 <a class="text-gray-400 transition hover:text-white" href="/">
-                    Projects
+                    Контакты
                 </a>
             </li>
 
             <li>
                 <a class="text-gray-400 transition hover:text-white" href="/">
-                    Blog
+                    Реквизиты
                 </a>
             </li>
         </ul>
