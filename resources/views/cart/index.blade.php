@@ -16,7 +16,7 @@
                                         <div class="swiper-wrapper">
                                             @foreach($item->associatedModel->img as $img)
                                             <div class="swiper-slide">
-                                                    <img src="{{ '/storage/' . $img }}" alt="item_img" class="w-full rounded-md object-cover bg-gray-100">
+                                                    <img src="{{ asset('storage/' . $img) }}" alt="item_img" class="w-full rounded-md object-cover bg-gray-100">
                                             </div>
                                             @endforeach
                                         </div>

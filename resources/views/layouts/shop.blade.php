@@ -14,7 +14,7 @@
 <body class="font-sans antialiased">
 <div class="min-h-full flex flex-col">
     @include('layouts.navigation')
-    <main class="flex flex-1">
+    <main class="flex flex-1 p-6">
         <div class="container mx-auto">
             @yield('content')
         </div>

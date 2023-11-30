@@ -21,7 +21,7 @@
             <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                 <?php $__currentLoopData = $product->img; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-                        <img src="<?php echo e('/storage/' . $img, false); ?>" alt="Two each of gray, white, and black shirts laying flat." class="h-full w-full object-cover object-center">
+                        <img src="<?php echo e(asset('storage/' . $img), false); ?>" alt="Two each of gray, white, and black shirts laying flat." class="h-full w-full object-cover object-center">
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 

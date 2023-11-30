@@ -22,7 +22,7 @@
             <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                 @foreach($product->img as $img)
                     <div class="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-                        <img src="{{ '/storage/' . $img }}" alt="Two each of gray, white, and black shirts laying flat." class="h-full w-full object-cover object-center">
+                        <img src="{{ asset('storage/' . $img) }}" alt="Two each of gray, white, and black shirts laying flat." class="h-full w-full object-cover object-center">
                     </div>
                 @endforeach
 

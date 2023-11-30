@@ -14,7 +14,7 @@
                                         <div class="swiper-wrapper">
                                             <?php $__currentLoopData = $item->associatedModel->img; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <div class="swiper-slide">
-                                                    <img src="<?php echo e('/storage/' . $img, false); ?>" alt="item_img" class="w-full rounded-md object-cover bg-gray-100">
+                                                    <img src="<?php echo e(asset('storage/' . $img), false); ?>" alt="item_img" class="w-full rounded-md object-cover bg-gray-100">
                                             </div>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>

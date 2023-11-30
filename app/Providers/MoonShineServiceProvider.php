@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\MoonShine\Resources\CategoryResource;
 use App\MoonShine\Resources\OrderResource;
 use App\MoonShine\Resources\ProductResource;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +24,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 MenuItem::make('Роли', new MoonShineUserRoleResource())->translatable()->icon('bookmark'),
             ])->translatable(),
             MenuItem::make('Продукты', new ProductResource())->icon('cart'),
+            MenuItem::make('Категории', new CategoryResource())->icon('heroicons.rectangle-group'),
             MenuItem::make('Заказы', new OrderResource())->icon('users')->badge(fn() => Order::query()->count()),
         ]);
     }

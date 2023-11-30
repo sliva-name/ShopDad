@@ -5,6 +5,7 @@ namespace App\MoonShine\Resources;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 
+use MoonShine\Fields\Text;
 use MoonShine\Resources\Resource;
 use MoonShine\Fields\ID;
 use MoonShine\Actions\FiltersAction;
@@ -19,6 +20,7 @@ class CategoryResource extends Resource
 	{
 		return [
 		    ID::make()->sortable(),
+            Text::make('Название', 'title'),
         ];
 	}
 

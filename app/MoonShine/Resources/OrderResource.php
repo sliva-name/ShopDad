@@ -37,8 +37,13 @@ class OrderResource extends Resource
                 Text::make('Название', 'name'),
                 Text::make('Количество', 'quantity'),
                 Text::make('Цена за предмет', 'price'),
-                NoInput::make('Фото', 'product_thumb', fn($item) => view('moonshine::components.thumbnails', ['values' => $this->recordsArray($item)]))
-            ])->removable()->hideOnIndex(),
+                NoInput::make('Фото', 'img', fn($item) => view('moonshine::components.thumbnails', ['values' => $this->recordsArray($item)]))->hideOnUpdate()->hideOnCreate(),
+                Image::make('Фото', 'img')
+                    ->multiple()
+                    ->dir('/products')
+                    ->disk('public')
+                    ->removable(),
+            ])->removable(),
 
             Text::make('Сумма заказа','summ'),
             Text::make('Телефон','phone'),
@@ -52,8 +57,10 @@ class OrderResource extends Resource
     private function recordsArray($array): array
     {
         $arr = [];
-        foreach ($array->product->img as $item) {
-            $arr[] = '/storage/' . $item;
+        if (!empty($array->product?->img)) {
+            foreach ($array->product->img as $item) {
+                $arr[] = asset('/storage/' . $item);
+            }
         }
         return $arr;
     }
