@@ -3,9 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Category;
-use Elastic\Elasticsearch\ClientBuilder;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Crawler\Crawler;
+use Spatie\Sitemap\SitemapGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {

@@ -162,8 +162,8 @@
                             </div>
                             <div class="flex flex-col lg:gap-3 gap-2 mt-6">
                                 <p class="lg:text-xl text-[13px] font-bold text-gray-900">{{ $product->price }}<span class="ml-[5px]">₽</span></p>
-                                <a href="{{ route('product', $product->id) }}" class="lg:text-[16px] sm:text-[12px] text-[8px] text-gray-900 font-medium hover:text-indigo-600">{{ Str::limit($product->title, 40) }}</a>
-                                <p class="lg:text-sm sm:text-[10px] text-[8px] flex text-gray-700">
+                                <a href="{{ route('product', $product->id) }}" class="lg:text-[16px] sm:text-[13px] text-[13px] text-gray-900 font-medium hover:text-indigo-600">{{ Str::limit($product->title, 40) }}</a>
+                                <p class="lg:text-sm sm:text-[13px] text-[13px] flex text-gray-700">
                                     @if($product->quantity > 0)
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                              fill="currentColor" aria-hidden="true"
@@ -212,7 +212,8 @@
 
 
 @endsection
+@section('scripts')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
+@endsection
 

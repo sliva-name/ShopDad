@@ -35,7 +35,7 @@
     </div>
 <?php endif; ?>
 
-<?php if (! $__env->hasRenderedOnce('50d8855d-88e5-4145-b791-34742d7c1e3f')): $__env->markAsRenderedOnce('50d8855d-88e5-4145-b791-34742d7c1e3f');
+<?php if (! $__env->hasRenderedOnce('6e74ed40-535f-44e0-902e-f921ccbe274c')): $__env->markAsRenderedOnce('6e74ed40-535f-44e0-902e-f921ccbe274c');
 $__env->startPush('scripts'); ?>
     <div x-data="toasts()" class="toast-container" @toast.window="add($event.detail)">
         <template x-for="toast of toasts" :key="toast.id">

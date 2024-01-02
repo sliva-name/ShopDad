@@ -37,12 +37,8 @@ class OrderResource extends Resource
                 Text::make('Название', 'name'),
                 Text::make('Количество', 'quantity'),
                 Text::make('Цена за предмет', 'price'),
-                NoInput::make('Фото', 'img', fn($item) => view('moonshine::components.thumbnails', ['values' => $this->recordsArray($item)]))->hideOnUpdate()->hideOnCreate(),
-                Image::make('Фото', 'img')
-                    ->multiple()
-                    ->dir('/products')
-                    ->disk('public')
-                    ->removable(),
+                //NoInput::make('Фото', 'img', fn($item) => view('moonshine::components.thumbnails', ['values' => $this->recordsArray($item)]))->hideOnUpdate()->hideOnCreate(),
+//
             ])->removable(),
 
             Text::make('Сумма заказа','summ'),
