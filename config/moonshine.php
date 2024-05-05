@@ -1,24 +1,80 @@
 <?php
 
 use MoonShine\Exceptions\MoonShineNotFoundException;
+use MoonShine\Forms\LoginForm;
+use MoonShine\Http\Middleware\Authenticate;
+use MoonShine\Http\Middleware\SecurityHeadersMiddleware;
 use MoonShine\Models\MoonshineUser;
+use MoonShine\MoonShineLayout;
+use MoonShine\Pages\ProfilePage;
 
 return [
     'dir' => 'app/MoonShine',
     'namespace' => 'App\MoonShine',
 
     'title' => env('MOONSHINE_TITLE', 'MoonShine'),
-    'logo' => env('MOONSHINE_LOGO', ''),
+    'logo' => env('MOONSHINE_LOGO'),
+    'logo_small' => env('MOONSHINE_LOGO_SMALL'),
 
     'route' => [
-        'prefix' => env('MOONSHINE_ROUTE_PREFIX', 'moonshine'),
-        'middleware' => ['web', 'moonshine'],
-        'custom_page_slug' => 'custom_page',
-        'notFoundHandler' => MoonShineNotFoundException::class
+        'domain' => env('MOONSHINE_URL', ''),
+        'prefix' => env('MOONSHINE_ROUTE_PREFIX', 'admin'),
+        'single_page_prefix' => 'page',
+        'index' => 'moonshine.index',
+        'middlewares' => [
+            SecurityHeadersMiddleware::class,
+        ],
+        'notFoundHandler' => MoonShineNotFoundException::class,
+    ],
+
+    'use_migrations' => true,
+    'use_notifications' => true,
+    'use_theme_switcher' => true,
+
+    'layout' => MoonShineLayout::class,
+
+    'disk' => 'public',
+
+    'disk_options' => [],
+
+    'cache' => 'file',
+
+    'assets' => [
+        'js' => [
+            'script_attributes' => [
+                'defer',
+            ]
+        ],
+        'css' => [
+            'link_attributes' => [
+                'rel' => 'stylesheet',
+            ]
+        ]
+    ],
+
+    'forms' => [
+        'login' => LoginForm::class
+    ],
+
+    'pages' => [
+        'dashboard' => App\MoonShine\Pages\Dashboard::class,
+        'profile' => ProfilePage::class
+    ],
+
+    'model_resources' => [
+        'default_with_import' => true,
+        'default_with_export' => true,
     ],
 
     'auth' => [
         'enable' => true,
+        'middleware' => Authenticate::class,
+        'fields' => [
+            'username' => 'email',
+            'password' => 'password',
+            'name' => 'name',
+            'avatar' => 'avatar',
+        ],
         'guard' => 'moonshine',
         'guards' => [
             'moonshine' => [
@@ -32,27 +88,24 @@ return [
                 'model' => MoonshineUser::class,
             ],
         ],
-        'footer' => ''
+        'pipelines' => [],
     ],
     'locales' => [
-        'ru'
+        'en',
+        'ru',
     ],
-    'middlewares' => [],
+
+    'global_search' => [
+        // User::class
+    ],
+
     'tinymce' => [
         'file_manager' => false, // or 'laravel-filemanager' prefix for lfm
         'token' => env('MOONSHINE_TINYMCE_TOKEN', ''),
-        'version' => env('MOONSHINE_TINYMCE_VERSION', '6')
+        'version' => env('MOONSHINE_TINYMCE_VERSION', '6'),
     ],
+
     'socialite' => [
         // 'driver' => 'path_to_image_for_button'
     ],
-    'header' => null, // blade path
-    'footer' => [
-        'copyright' => 'Made with ❤️ by <a href="https://cutcode.dev" class="font-semibold text-purple hover:text-pink" target="_blank">CutCode</a>',
-        'nav' => [
-            'https://github.com/lee-to/moonshine/blob/1.x/LICENSE.md' => 'License',
-            'https://moonshine.cutcode.dev' => 'Documentation',
-            'https://github.com/lee-to/moonshine' => 'GitHub',
-        ],
-    ]
 ];

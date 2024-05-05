@@ -45,13 +45,13 @@ class OrderController extends Controller
 
         foreach ($items as $item) {
             if ($item->quantity > 0) {
-                $order->order()->create([
+                $order->orderItems()->create([
                     'name' => $item->name,
                     'price' => $item->price,
                     'quantity' => $item->quantity,
                     'product_id' => $item->id
                 ]);
-                Product::where('id', $item->id)->decrement('quantity', $item->quantity);
+                Product::query()->where('id', $item->id)->decrement('quantity', $item->quantity);
             }
             else {
                 return back()->withInput();

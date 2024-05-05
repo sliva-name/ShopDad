@@ -5,21 +5,19 @@ namespace App\MoonShine\Resources;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
 
-use Illuminate\Support\Facades\Route;
-use MoonShine\Fields\BelongsTo;
 use MoonShine\Fields\Image;
 use MoonShine\Fields\Json;
 use MoonShine\Fields\Number;
+use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Text;
-use MoonShine\Resources\Resource;
+use MoonShine\Resources\ModelResource;
 use MoonShine\Fields\ID;
-use MoonShine\Actions\FiltersAction;
 
-class ProductResource extends Resource
+class ProductResource extends ModelResource
 {
-	public static string $model = Product::class;
+    protected string $model = Product::class;
 
-    public static string $title = 'Продукты';
+    protected string $title = 'Продукты';
 
     /**
      * @throws \Throwable
@@ -40,7 +38,7 @@ class ProductResource extends Resource
                 ->dir('/products')
                 ->disk('public')
                 ->removable(),
-            BelongsTo::make('Категория', 'category_id', 'title')
+            BelongsTo::make('Категория', 'category', resource: new CategoryResource())
         ];
 	}
 
@@ -57,16 +55,5 @@ class ProductResource extends Resource
     public function filters(): array
     {
         return [];
-    }
-
-    public function actions(): array
-    {
-        return [
-            FiltersAction::make(trans('moonshine::ui.filters')),
-        ];
-    }
-    public function store(Model $item)
-    {
-
     }
 }

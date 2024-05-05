@@ -29,7 +29,8 @@
     <!-- /Yandex.Metrika counter -->
 
     <meta charset="utf-8">
-    <?php if (isset($component)) { $__componentOriginal71c6471fa76ce19017edc287b6f4508c = $component; } ?>
+    <?php if (isset($component)) { $__componentOriginal87ec938572a6fc79fa8a40366357ad44 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal87ec938572a6fc79fa8a40366357ad44 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'seo::components.meta','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('seo::meta'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -40,9 +41,13 @@
 <?php $component->withAttributes([]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal71c6471fa76ce19017edc287b6f4508c)): ?>
-<?php $component = $__componentOriginal71c6471fa76ce19017edc287b6f4508c; ?>
-<?php unset($__componentOriginal71c6471fa76ce19017edc287b6f4508c); ?>
+<?php if (isset($__attributesOriginal87ec938572a6fc79fa8a40366357ad44)): ?>
+<?php $attributes = $__attributesOriginal87ec938572a6fc79fa8a40366357ad44; ?>
+<?php unset($__attributesOriginal87ec938572a6fc79fa8a40366357ad44); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal87ec938572a6fc79fa8a40366357ad44)): ?>
+<?php $component = $__componentOriginal87ec938572a6fc79fa8a40366357ad44; ?>
+<?php unset($__componentOriginal87ec938572a6fc79fa8a40366357ad44); ?>
 <?php endif; ?>
     <link rel="icon" href="<?php echo e(asset('logo.png'), false); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">

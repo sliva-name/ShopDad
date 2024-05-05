@@ -136,7 +136,7 @@
             <div class="lg:col-span-3">
                 <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-6">
                     @foreach($products as $product)
-                        <div class="group p-6 border border-gray-200 rounded-lg hover:-translate-y-1 transform-gpu transition ease-in-out">
+                        <div class="group flex flex-col flex-wrap justify-between p-6 border border-gray-200 rounded-lg hover:-translate-y-1 transform-gpu transition ease-in-out">
                             <div class="aspect-h-1 aspect-w-1 h-1/2 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                                 <div class="swiper mySwiper-{{ $product->id }} max-h-[250px] h-full">
                                     <div class="swiper-wrapper">
@@ -185,13 +185,11 @@
                                     @endif
 
                                 </p>
-                                <form method="post" action="{{ route('cart.add', $product->id) }}" class="mb-0">
-                                    @csrf
-                                    <button type="submit" class="rounded-lg bg-indigo-600 text-white lg:text-[16px] text-[13px] lg:px-3 lg:py-2 px-2 py-1 w-full hover:bg-indigo-500">В корзину</button>
-                                </form>
-
                             </div>
-
+                            <form method="post" action="{{ route('cart.add', $product->id) }}" class="mb-0">
+                                @csrf
+                                <button type="submit" class="rounded-lg bg-indigo-600 text-white lg:text-[16px] text-[13px] lg:px-3 lg:py-2 px-2 py-1 w-full hover:bg-indigo-500">В корзину</button>
+                            </form>
                         </div>
                     @endforeach
                 </div>

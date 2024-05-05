@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->unsignedInteger('price');
             $table->json('img');
-            $table->unsignedInteger('quantity');
+            $table->integer('quantity');
             $table->foreignId('category_id')->nullable();
             $table->timestamps();
         });

@@ -24,7 +24,7 @@ class Order extends Model
         'summ',
     ];
 
-    public function order(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function orderItems(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(OrderItem::class);
     }

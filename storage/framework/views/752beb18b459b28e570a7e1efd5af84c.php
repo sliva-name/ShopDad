@@ -1,0 +1,2 @@
+<div class="hidden-ids" <?php echo e($element->attributes()->only(['data-for-component']), false); ?>>
+</div><?php /**PATH D:\OSPanel\domains\ShopDad\vendor\moonshine\moonshine\src\Providers/../../resources/views/fields/hidden-ids.blade.php ENDPATH**/ ?>

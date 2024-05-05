@@ -7,31 +7,30 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 
 use Illuminate\Http\Request;
-use MoonShine\Fields\BelongsTo;
-use MoonShine\Fields\Select;
+use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Text;
-use MoonShine\Resources\Resource;
+use MoonShine\Resources\ModelResource;
 use MoonShine\Fields\ID;
-use MoonShine\Actions\FiltersAction;
 
-class CategoryResource extends Resource
+class CategoryResource extends ModelResource
 {
-	public static string $model = Category::class;
+	protected string $model = Category::class;
 
-	public static string $title = 'Категории товаров';
+    protected string $title = 'Категории товаров';
 
 	public function fields(): array
 	{
 		return [
 		    ID::make()->sortable(),
             Text::make('Название', 'title'),
-            BelongsTo::make('Подкатегория', 'parent_id', 'title')
+            BelongsTo::make('Подкатегория', 'parent', resource: new CategoryResource())
                 ->nullable()
                 ->asyncSearch('title',
                     asyncSearchQuery: function (Builder $query, Request $request): Builder {
                         return $query->where('parent_id', $request->get('parent_id'));
                     }
                 )
+                ->associatedWith('parent_id')
         ];
 	}
 
@@ -48,12 +47,5 @@ class CategoryResource extends Resource
     public function filters(): array
     {
         return [];
-    }
-
-    public function actions(): array
-    {
-        return [
-            FiltersAction::make(trans('moonshine::ui.filters')),
-        ];
     }
 }

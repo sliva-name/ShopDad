@@ -2,45 +2,27 @@
 
 namespace App\MoonShine\Resources;
 
-use App\Models\OrderItem;
-use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Order;
 
-use MoonShine\Fields\BelongsTo;
-use MoonShine\Fields\BelongsToMany;
 use MoonShine\Fields\Date;
-use MoonShine\Fields\HasMany;
-use MoonShine\Fields\Image;
-use MoonShine\Fields\NoInput;
+use MoonShine\Fields\Relationships\HasMany;
 use MoonShine\Fields\Text;
-use MoonShine\Resources\Resource;
+use MoonShine\Resources\ModelResource;
 use MoonShine\Fields\ID;
-use MoonShine\Actions\FiltersAction;
 
-class OrderResource extends Resource
+class OrderResource extends ModelResource
 {
-	public static string $model = Order::class;
+	protected string $model = Order::class;
 
-	public static string $title = 'Заказы';
-
-    protected bool $showInModal = true;
-    public static string $subTitle = 'Управление заказами';
+    protected string $title = 'Заказы';
 
 	public function fields(): array
 	{
 		return [
 		    ID::make()->sortable(),
             Text::make('Имя', 'first_name', fn($item) => $item->first_name . ' ' . $item->last_name),
-            HasMany::make('Заказанные предметы', 'order_id')->fields([
-                BelongsTo::make('Id предмета', 'product_id', 'id'),
-                Text::make('Название', 'name'),
-                Text::make('Количество', 'quantity'),
-                Text::make('Цена за предмет', 'price'),
-                //NoInput::make('Фото', 'img', fn($item) => view('moonshine::components.thumbnails', ['values' => $this->recordsArray($item)]))->hideOnUpdate()->hideOnCreate(),
-//
-            ])->removable(),
-
+            HasMany::make('Заказанные предметы', 'orderItems', resource: new OrderItemsResource()),
             Text::make('Сумма заказа','summ'),
             Text::make('Телефон','phone'),
             Text::make('Регион','region'),
@@ -50,6 +32,49 @@ class OrderResource extends Resource
 
         ];
 	}
+    public function indexFields(): array
+    {
+        return [
+            ID::make()->sortable(),
+            Text::make('Имя', 'first_name', fn($item) => $item->first_name . ' ' . $item->last_name),
+            Text::make('Сумма заказа','summ'),
+            Text::make('Телефон','phone'),
+            Text::make('Регион','region'),
+            Text::make('Город','city'),
+            Text::make('Индекс города','postal_code'),
+            Date::make('Дата заказа', 'created_at')->withTime()
+        ];
+    }
+
+    public function formFields(): array
+    {
+        return [
+            ID::make()->sortable(),
+            Text::make('Имя', 'first_name', fn($item) => $item->first_name . ' ' . $item->last_name),
+            HasMany::make('Заказанные предметы', 'orderItems', resource: new OrderItemsResource()),
+            Text::make('Сумма заказа','summ'),
+            Text::make('Телефон','phone'),
+            Text::make('Регион','region'),
+            Text::make('Город','city'),
+            Text::make('Индекс города','postal_code'),
+            Date::make('Дата заказа', 'created_at')->withTime()
+        ];
+    }
+
+    public function detailFields(): array
+    {
+        return [
+            ID::make('ID'),
+            Text::make('Имя', 'first_name', fn($item) => $item->first_name . ' ' . $item->last_name),
+            HasMany::make('Заказанные предметы', 'orderItems', resource: new OrderItemsResource()),
+            Text::make('Сумма заказа','summ'),
+            Text::make('Телефон','phone'),
+            Text::make('Регион','region'),
+            Text::make('Город','city'),
+            Text::make('Индекс города','postal_code'),
+            Date::make('Дата заказа', 'created_at')->withTime()
+        ];
+    }
     private function recordsArray($array): array
     {
         $arr = [];
@@ -74,12 +99,5 @@ class OrderResource extends Resource
     public function filters(): array
     {
         return [];
-    }
-
-    public function actions(): array
-    {
-        return [
-            FiltersAction::make(trans('moonshine::ui.filters')),
-        ];
     }
 }

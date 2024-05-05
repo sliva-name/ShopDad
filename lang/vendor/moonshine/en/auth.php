@@ -13,12 +13,12 @@ return [
     |
     */
 
-    'failed' => 'Эти учетные данные не соответствуют нашим записям.',
-    'password' => 'Указанный пароль неверен.',
-    'throttle' => 'Слишком много попыток входа в систему. Пожалуйста, повторите попытку через :seconds секунд.',
+    'failed' => 'These credentials do not match our records.',
+    'password' => 'The provided password is incorrect.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
     'socialite' => [
-        'link_exists' => 'Учетная запись уже существует',
-        'link_success' => 'Связанная учетная запись',
+        'link_exists' => 'Account already exists',
+        'link_success' => 'Account linked',
     ]
 ];
