@@ -23821,3 +23821,49 @@ Did you mean one of these?
 #61 D:\\OSPanel\\domains\\ShopDad\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('D:\\\\OSPanel\\\\doma...')
 #62 {main}
 "} 
+[2024-05-11 07:48:22] local.ERROR: There are no commands defined in the "install" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"install\" namespace. at D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php:669)
+[stacktrace]
+#0 D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php(720): Symfony\\Component\\Console\\Application->findNamespace()
+#1 D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find()
+#2 D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun()
+#3 D:\\OSPanel\\domains\\ShopDad\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run()
+#4 D:\\OSPanel\\domains\\ShopDad\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#5 {main}
+"} 
+[2024-05-11 07:48:56] local.ERROR: There are no commands defined in the "install" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"install\" namespace. at D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php:669)
+[stacktrace]
+#0 D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php(720): Symfony\\Component\\Console\\Application->findNamespace()
+#1 D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find()
+#2 D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun()
+#3 D:\\OSPanel\\domains\\ShopDad\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run()
+#4 D:\\OSPanel\\domains\\ShopDad\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#5 {main}
+"} 
+[2024-05-11 08:01:47] local.ERROR: Command "config:publish" is not defined.
+
+Did you mean one of these?
+    config:cache
+    config:clear
+    config:show
+    lang:publish
+    moonshine:publish
+    sail:publish
+    stub:publish
+    vendor:publish {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"config:publish\" is not defined.
+
+Did you mean one of these?
+    config:cache
+    config:clear
+    config:show
+    lang:publish
+    moonshine:publish
+    sail:publish
+    stub:publish
+    vendor:publish at D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php:737)
+[stacktrace]
+#0 D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find()
+#1 D:\\OSPanel\\domains\\ShopDad\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun()
+#2 D:\\OSPanel\\domains\\ShopDad\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run()
+#3 D:\\OSPanel\\domains\\ShopDad\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 {main}
+"} 

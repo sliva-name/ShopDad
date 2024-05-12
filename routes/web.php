@@ -5,7 +5,9 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,20 +24,38 @@ Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/product/category/{id}', [WelcomeController::class, 'productByCategory']);
 Route::get('/product/{product}', [ProductController::class, 'index'])->name('product');
 
+Route::post('/sanctum/token', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+        'device_name' => 'required',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if (! $user || ! Hash::check($request->password, $user->password)) {
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
+    }
+
+    return $user->createToken($request->device_name)->plainTextToken;
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['prefix' => 'cart'], function () {
+Route::group(['prefix' => 'cart', 'middleware' => 'auth:sanctum'], function () {
     Route::get('/', [CartController::class, 'index'])->name('cart.index');
     Route::post('/add/{item}', [CartController::class, 'addItem'])->name('cart.add');
     Route::post('/remove', [CartController::class, 'removeItem'])->name('cart.remove');
     Route::post('/update', [CartController::class, 'updateCart'])->name('cart.update');
 });
 
-Route::group(['prefix' => 'order', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'order', 'middleware' => ['auth', 'auth:sanctum']], function () {
    Route::get('/', [OrderController::class, 'index'])->name('order.index');
    Route::post('/add', [OrderController::class, 'addOrder'])->name('order.add');
    Route::get('/get', [OrderController::class, 'get'])->name('order.get');
