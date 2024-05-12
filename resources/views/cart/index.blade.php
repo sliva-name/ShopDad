@@ -5,7 +5,7 @@
         <h1 class="font-bold text-4xl text-gray-900">Корзина</h1>
         <form action="{{ route('order.index') }}" class="py-12 grid grid-cols-1 gap-y-12  lg:grid-cols-12 sm:grid-cols-1 lg:gap-12 sm:gap-y-12 items-start">
             <section class="cart_items col-span-7">
-                @if (Cart::isEmpty())
+                @if (Cart::session(\Auth::user()->id)->isEmpty())
                     <h2 class="text-3xl text-gray-900 font-medium">Корзина пуста</h2>
                 @else
                     <ul class="border-t border-b" id="products">
@@ -111,7 +111,7 @@
                             <dd class="text-sm font-medium text-gray-900">{{ $condition->getValue() }}</dd>
                         </div>
                     @endforeach
-                        @foreach(\Cart::getContent() as $item)
+                        @foreach(\Cart::session(\Auth::user()->id)->getContent() as $item)
                             <div class="flex lg:gap-0 gap-4 lg:flex-row sm:flex-row flex-col justify-between items-center border-t  first-of-type:border-t-0  pt-4">
                                 <dt class="text-sm text-gray-600">{{ $item->name }} X <span id="quantity_item">{{ $item->quantity }}</span></dt>
                                 <dd class="text-sm font-medium text-gray-900">{{ $item->price *  $item->quantity}}</dd>
@@ -120,7 +120,7 @@
 
                     <div class="flex lg:gap-0 gap-4 lg:flex-row sm:flex-row flex-col justify-between items-center  border-t  pt-4">
                         <dt class="text-base font-medium text-gray-900">Итоговая цена</dt>
-                        <dd class="text-base font-medium text-gray-900" id="total">{{ Cart::getTotal() }} руб</dd>
+                        <dd class="text-base font-medium text-gray-900" id="total">{{ Cart::session(\Auth::user()->id)->getTotal() }} руб</dd>
                     </div>
                 </dl>
                 <div class="mt-6">

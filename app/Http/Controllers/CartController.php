@@ -11,7 +11,8 @@ class CartController extends Controller
 {
     public function index()
     {
-        \Cart::clearCartConditions();
+
+        \Cart::session(\Auth::user()->id)->clearCartConditions();
         $condition = new CartCondition(array(
             'name' => 'VAT 12.5%',
             'type' => 'tax',
@@ -31,9 +32,9 @@ class CartController extends Controller
         ));
 
 
-        \Cart::condition([$condition, $condition2]);
-        $cartConditions = \Cart::getConditions();
-        $cartItems = \Cart::getContent();
+        \Cart::session(\Auth::user()->id)->condition([$condition, $condition2]);
+        $cartConditions = \Cart::session(\Auth::user()->id)->getConditions();
+        $cartItems = \Cart::session(\Auth::user()->id)->getContent();
         //$cartItems = \Cart::session(session()->get('userID'))->getContent();
         return view('cart.index', compact('cartItems', 'cartConditions'));
     }
@@ -42,7 +43,7 @@ class CartController extends Controller
     public function addItem(Product $item)
     {
 
-      \Cart::add(array(
+      \Cart::session(\Auth::user()->id)->add(array(
             'id' => $item->id, // inique row ID
             'name' => $item->title, //
             'price' => $item->price,
@@ -64,21 +65,21 @@ class CartController extends Controller
 
     public function updateCart(Request $item): \Illuminate\Http\JsonResponse
     {
-        \Cart::update($item->id,[
+        \Cart::session(\Auth::user()->id)->update($item->id,[
             'quantity' => [
                 'relative' => false,
                 'value' => $item->quantity,
             ]
         ]);
 
-        $total = \Cart::getTotal();
+        $total = \Cart::session(\Auth::user()->id)->getTotal();
         $quantity = $item->quantity;
         return response()->json(['total' => $total . ' руб', 'quantity' => $quantity]);
     }
 
     public function removeItem(Request $request): \Illuminate\Http\JsonResponse
     {
-        \Cart::remove($request->id);
+        \Cart::session(\Auth::user()->id)->remove($request->id);
         session()->flash('success', 'Item Cart Remove Successfully !');
 
         return response()->json(['success']);
@@ -86,7 +87,7 @@ class CartController extends Controller
 
     public function clearAllCart()
     {
-        \Cart::clear();
+        \Cart::session(\Auth::user()->id)->clear();
 
         session()->flash('success', 'All Item Cart Clear Successfully !');
 

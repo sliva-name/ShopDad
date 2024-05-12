@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,23 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('/sanctum/token', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+        'device_name' => 'required',
+    ]);
 
+    $user = User::where('email', $request->email)->first();
+
+    if (! $user || ! Hash::check($request->password, $user->password)) {
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
+    }
+
+    return $user->createToken($request->device_name)->plainTextToken;
+});
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -23,4 +41,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/products/get', fn() => \App\Http\Resources\Product::collection(Product::paginate(20)))->name('api.products.get');
 Route::get('/product/get/{id}', fn($id) => new \App\Http\Resources\Product(Product::findOrFail($id)));
 Route::get('/categories/get', fn() => new \App\Http\Resources\Category(\App\Models\Category::all()));
-Route::get('/cart/get', fn() => \App\Http\Resources\Cart::collection('2')); // Доработать бд и переписать корзину
+Route::get('/cart/get', fn() => \Cart::session(\Auth::user()->id)->getContent())->middleware('auth:sanctum'); // Доработать бд и переписать корзину
