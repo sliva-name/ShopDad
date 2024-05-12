@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,3 +43,5 @@ Route::get('/products/get', fn() => \App\Http\Resources\Product::collection(Prod
 Route::get('/product/get/{id}', fn($id) => new \App\Http\Resources\Product(Product::findOrFail($id)));
 Route::get('/categories/get', fn() => new \App\Http\Resources\Category(\App\Models\Category::all()));
 Route::get('/cart/get', fn() => \Cart::session(\Auth::user()->id)->getContent())->middleware('auth:sanctum'); // Доработать бд и переписать корзину
+Route::post('/cart/add/{itemId}', [CartController::class, 'addItem'])->middleware('auth:sanctum');
+Route::delete('/cart/add/{itemId}', [CartController::class, 'removeItem'])->middleware('auth:sanctum');

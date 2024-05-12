@@ -43,7 +43,11 @@ class CartController extends Controller
     public function addItem(Product $item)
     {
 
-      \Cart::session(\Auth::user()->id)->add(array(
+        if ($item->quantity < 0) {
+            return abort(404);
+        }
+
+        \Cart::session(\Auth::user()->id)->add(array(
             'id' => $item->id, // inique row ID
             'name' => $item->title, //
             'price' => $item->price,
@@ -51,14 +55,6 @@ class CartController extends Controller
             'attributes' => [],
             'associatedModel' => $item,
         ));
-//        \Cart::session($userId->add(array(
-//            'id' => $item->id, // inique row ID
-//            'name' => $item->title, //
-//            'price' => $item->price,
-//            'quantity' => 1,
-//            'attributes' => [],
-//            'associatedModel' => $item,
-//        ));
 
         return to_route('cart.index');
     }

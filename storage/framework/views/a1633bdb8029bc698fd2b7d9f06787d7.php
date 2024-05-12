@@ -3,7 +3,7 @@
         <h1 class="font-bold text-4xl text-gray-900">Корзина</h1>
         <form action="<?php echo e(route('order.index'), false); ?>" class="py-12 grid grid-cols-1 gap-y-12  lg:grid-cols-12 sm:grid-cols-1 lg:gap-12 sm:gap-y-12 items-start">
             <section class="cart_items col-span-7">
-                <?php if(Cart::isEmpty()): ?>
+                <?php if(Cart::session(\Auth::user()->id)->isEmpty()): ?>
                     <h2 class="text-3xl text-gray-900 font-medium">Корзина пуста</h2>
                 <?php else: ?>
                     <ul class="border-t border-b" id="products">
@@ -110,7 +110,7 @@
                             <dd class="text-sm font-medium text-gray-900"><?php echo e($condition->getValue(), false); ?></dd>
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        <?php $__currentLoopData = \Cart::getContent(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $__currentLoopData = \Cart::session(\Auth::user()->id)->getContent(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="flex lg:gap-0 gap-4 lg:flex-row sm:flex-row flex-col justify-between items-center border-t  first-of-type:border-t-0  pt-4">
                                 <dt class="text-sm text-gray-600"><?php echo e($item->name, false); ?> X <span id="quantity_item"><?php echo e($item->quantity, false); ?></span></dt>
                                 <dd class="text-sm font-medium text-gray-900"><?php echo e($item->price *  $item->quantity, false); ?></dd>
@@ -119,7 +119,7 @@
 
                     <div class="flex lg:gap-0 gap-4 lg:flex-row sm:flex-row flex-col justify-between items-center  border-t  pt-4">
                         <dt class="text-base font-medium text-gray-900">Итоговая цена</dt>
-                        <dd class="text-base font-medium text-gray-900" id="total"><?php echo e(Cart::getTotal(), false); ?> руб</dd>
+                        <dd class="text-base font-medium text-gray-900" id="total"><?php echo e(Cart::session(\Auth::user()->id)->getTotal(), false); ?> руб</dd>
                     </div>
                 </dl>
                 <div class="mt-6">
